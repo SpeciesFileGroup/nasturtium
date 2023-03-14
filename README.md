@@ -44,6 +44,23 @@ Inaturalia.taxa(rank: 'species', order: 'desc', order_by: 'observations_count') 
 ```
 ---
 
+---
+### Taxa autocomplete
+Get suggested taxa names for a query Sinapis at ranks genus,species,subspecies with a limit of 5 suggestions:
+```ruby
+Inaturalia.taxa_autocomplete(q: 'Sinapis', rank: 'genus,species,subspecies', per_page: 5) #  => MultiJson object
+```
+Include all names for each suggested taxon:
+```ruby
+Inaturalia.taxa_autocomplete(q: 'Sinapis', rank: 'genus,species,subspecies', per_page: 5, all_names: true) #  => MultiJson object
+```
+Get common names by the language at preferred_place_id which adds a preferred_common_name key (use Inaturalia.places_autocomplete to lookup place_id's):
+```ruby
+Inaturalia.taxa_autocomplete(q: 'Danaus plexippus', preferred_place_id: 6903, rank: 'species') #  => MultiJson object
+```
+---
+
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.

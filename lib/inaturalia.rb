@@ -76,4 +76,25 @@ module Inaturalia
     end
   end
 
+  # Taxon suggest
+  # @param q [String, nil] A suggest query
+  # @param is_active [Boolean, nil] Suggest only active taxa
+  # @param taxon_id [String, nil] Filter by comma-separated taxon IDs
+  # @param rank [Array, String, nil] Filter by an array of taxon ranks
+  # @param rank_level [Integer, nil] Filter by taxon rank level (e.g., 70 for kingdom)
+  # @param locale [String, nil] Locale preference for taxon common names (e.g., en-US)
+  # @param preferred_place_id [Integer, nil] Place of preference for regional taxon common names
+  # @param all_names [Boolean, nil] Include all taxon names in the response
+  #
+  # @param per_page [Integer, nil] The results limit
+  # @param verbose [Boolean] Print headers to STDOUT
+  #
+  # @return [Array, Boolean] A hash with search results
+  def self.taxa_autocomplete(q: nil, is_active: nil, taxon_id: nil, rank: nil, rank_level: nil, locale: nil,
+                             preferred_place_id: nil, all_names: nil, per_page: nil, verbose: false)
+    endpoint = 'taxa/autocomplete'
+    Request.new(endpoint: endpoint, q: q, is_active: is_active, taxon_id: taxon_id, rank: rank, rank_level: rank_level,
+                locale: locale, preferred_place_id: preferred_place_id, all_names: all_names, per_page: per_page,
+                verbose: verbose).perform
+  end
 end
