@@ -20,10 +20,29 @@ Or install it yourself as:
 
 ## Usage
 
-Parse human names with names separated by `;` and each set separated by `\r\n`:
+---
+### Search
+Search places, projects, taxa, or users:
 ```ruby
- res = Inaturalia.parse(names: 'Henry Robert Nicollon des Abbayes; Groom Q\r\nMrs. John Errol Chandos Aberdeen') #  => MultiJson object
+Inaturalia.search(q: 'Quercus', sources: 'taxa') #  => MultiJson object
 ```
+---
+
+---
+### Taxa
+Search and fetch taxa with a comma-separted list of IDs:
+```ruby
+Inaturalia.taxa(id: '1,2') #  => MultiJson object
+```
+Search and fetch taxa:
+```ruby
+Inaturalia.taxa(q: 'Danaus plexippus', rank: 'species') #  => MultiJson object
+```
+Fetch taxa ordered by greatest observations count:
+```ruby
+Inaturalia.taxa(rank: 'species', order: 'desc', order_by: 'observations_count') #  => MultiJson object
+```
+---
 
 ## Development
 
