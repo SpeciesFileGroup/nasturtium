@@ -104,7 +104,7 @@ module Inaturalia
 
   # Search places, projects, taxa, users
   # @param q [String, nil] A search query
-  # @param sources [Array, String, nil] Type of record to search (places, projects, taxa, users)
+  # @param sources [String, nil] Type of record to search (places, projects, taxa, users)
   # @param place_id [String, nil] Filter to an array of place_ids (TODO: place_id is an array in the documentation but doesn't seem to work even with their example?)
   # @param preferred_place_id [Integer, nil] Place of preference for regional taxon common names
   # @param locale [String, nil] Locale preference for taxon common names (e.g., en-US)
@@ -113,7 +113,7 @@ module Inaturalia
   # @param per_page [Integer, nil] The results limit
   # @param verbose [Boolean] Print headers to STDOUT
   #
-  # @return [Array, Boolean] A hash with search results
+  # @return [Hash, Boolean] A hash with search results
   def self.search(q: nil, sources: nil, place_id: nil, preferred_place_id: nil, locale: nil, page: nil, per_page: nil,
                   verbose: false)
     endpoint = 'search'
@@ -348,18 +348,18 @@ module Inaturalia
   end
 
   # Taxon search
-  # @param id [Array, String, nil] A taxon ID or comma-separated array of taxon IDs
+  # @param id [String, Integer, nil] A taxon ID or comma-separated array of taxon IDs
   # @param q [String, nil] A search query
-  # @param is_active [Boolean, nil]
-  # @param taxon_id [Array, String, nil] Filter by a comma-separated array of taxon_ids
+  # @param is_active [Boolean, nil] Filter to taxa with active taxon concepts
+  # @param taxon_id [String, Integer, nil] Filter by a comma-separated array of taxon_ids
   # @param parent_id [Integer, nil] Filter by a taxon parent_id
-  # @param rank [Array, String, nil] Filter by an array of taxon ranks
+  # @param rank [String, nil] Filter by an array of taxon ranks
   # @param rank_level [Integer, nil] Filter by taxon rank level (e.g., 70 for kingdom)
   # @param id_above [Integer, nil] ID must be greater than value
   # @param id_below [Integer, nil] ID must be below value
   # @param preferred_place_id [Integer, nil] Place of preference for regional taxon common names
   # @param locale [String, nil] Locale preference for taxon common names (e.g., en-US)
-  # @param only_id [Boolean, nil] Only return taxon_ids
+  # @param only_id [Boolean, nil] Only return record IDs
   # @param all_names [Boolean, nil] Include all taxon names in the response
   #
   # @param order [String, nil] Ascending or descending sort order (asc, desc)
@@ -368,7 +368,7 @@ module Inaturalia
   # @param per_page [Integer, nil] The results limit
   # @param verbose [Boolean] Print headers to STDOUT
   #
-  # @return [Array, Boolean] A hash with search results
+  # @return [Hash, Boolean] A hash with search results
   def self.taxa(id: nil, q: nil, is_active: nil, taxon_id: nil, parent_id: nil, rank: nil, rank_level: nil,
                 id_above: nil, id_below: nil, locale: nil, only_id: nil, all_names: nil, preferred_place_id: nil,
                 order: nil, order_by: nil, page: nil, per_page: nil, verbose: false)
@@ -386,9 +386,9 @@ module Inaturalia
 
   # Taxon suggest
   # @param q [String, nil] A suggest query
-  # @param is_active [Boolean, nil] Suggest only active taxa
+  # @param is_active [Boolean, nil] Suggest only taxa with active taxon concepts
   # @param taxon_id [String, nil] Filter by comma-separated taxon IDs
-  # @param rank [Array, String, nil] Filter by an array of taxon ranks
+  # @param rank [String, nil] Filter by an array of taxon ranks
   # @param rank_level [Integer, nil] Filter by taxon rank level (e.g., 70 for kingdom)
   # @param locale [String, nil] Locale preference for taxon common names (e.g., en-US)
   # @param preferred_place_id [Integer, nil] Place of preference for regional taxon common names
@@ -397,7 +397,7 @@ module Inaturalia
   # @param per_page [Integer, nil] The results limit
   # @param verbose [Boolean] Print headers to STDOUT
   #
-  # @return [Array, Boolean] A hash with search results
+  # @return [Hash, Boolean] A hash with search results
   def self.taxa_autocomplete(q: nil, is_active: nil, taxon_id: nil, rank: nil, rank_level: nil, locale: nil,
                              preferred_place_id: nil, all_names: nil, per_page: nil, verbose: false)
     endpoint = 'taxa/autocomplete'
