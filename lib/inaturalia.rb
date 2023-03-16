@@ -11,6 +11,97 @@ module Inaturalia
   define_setting :base_url, "https://api.inaturalist.org/v1/"
   define_setting :mailto, ENV["INATURALIA_API_EMAIL"]
 
+  # Get identifications
+  # @param id [String, Integer, nil] An array of identification IDs
+  # @param current_taxon [Boolean, nil] The identification taxon is the same as its observation's taxon
+  # @param own_observation [Boolean, nil] The identification was added by th observer
+  # @param is_change [Boolean, nil] The identification was created as a result of a taxon change
+  # @param taxon_active [Boolean nil] The identification's taxon is currently an active taxon
+  # @param observation_taxon_active [Boolean, nil] The observation's taxon is currently an active taxon
+  # @param rank [String, nil] Filter by a comma-separated list of taxonomic ranks on the identification
+  # @param observation_rank [String, nil] Filter by a comma-separated list of taxonomic ranks on the observation
+  # @param user_id [String, Integer, nil] Filter by a comma-separated list of user IDs
+  # @param user_login [String, nil] Filter by a comma-separated list of user logins
+  # @param current [Boolean, nil] The most recent identification on an observation by a user
+  # @param category [String, nil] The type of identification (improving, supporting, leading)
+  # @param place_id [String, Integer, nil] Filter by a comma-separated list of place IDs
+  # @param quality_grade [String, nil] Filter by a comma-separated list of quality grades (casual, needs_id, research)
+  # @param taxon_id [String, Integer, nil] Filter by a comma-separated list of taxon IDs on the identification
+  # @param observation_taxon_id [String, Integer, nil] Filter by a comma-separated list of taxon IDs on the observation
+  # @param iconic_taxon_id [String, Integer, nil] Filter by a comma-separated list of iconic taxon IDs on the identification
+  # @param observation_iconic_taxon_id [String, Integer, nil] Filter by a comma-separated list of iconic taxon IDs on the observation
+  # @param rank_lowest [String, nil] The identification's taxon must have this rank or higher
+  # @param rank_highest [String, nil] The identification's taxon must have this rank or lower
+  # @param observation_rank_lowest [String, nil] The observation's taxon must have this rank or higher
+  # @param observation_rank_highest [String, nil] The observation's taxon must have this rank or lower
+  # @param without_taxon_id [String, Integer, nil] Exclude this comma-separated list of identification taxon IDs and their descendants
+  # @param without_observation_taxon_id [String, Integer, nil] Exclude this comma-separated list of observation taxon IDs and their descendants
+  # @param created_before [String, nil] Identification record was created before this time (d2)
+  # @param created_after [String, nil] Identification record was created after this time (d1)
+  # @param observation_created_before [String, nil] Observation record was created before this time (observation_created_d2)
+  # @param observation_created_after [String, nil] Observation record was created after this time (observation_created_d1)
+  # @param observed_before [String, nil] Observed before this time (observed_d2)
+  # @param observed_after [String, nil] Observed after this time (observed_d1)
+  # @param id_below [String, Integer, nil] The identification ID must be below the provided value
+  # @param id_above [String, Integer, nil] The identification ID must be above the provided value
+  # @param only_id [Boolean, nil] Only return record IDs
+  #
+  # @param page
+  # @param per_page
+  # @param order
+  # @param order_by
+  #
+  # @return [Hash, Boolean] A hash of identification results
+  def self.identifications(id: nil, current_taxon: nil, own_observation: nil, is_change: nil,
+                           taxon_active: nil, observation_taxon_active: nil, rank: nil, observation_rank: nil,
+                           user_id: nil, user_login: nil, current: nil, category: nil, place_id: nil,
+                           quality_grade: nil, taxon_id: nil, observation_taxon_id: nil, iconic_taxon_id: nil,
+                           observation_iconic_taxon_id: nil, rank_lowest: nil, rank_highest: nil,
+                           observation_rank_lowest: nil, observation_rank_highest: nil, without_taxon_id: nil,
+                           without_observation_taxon_id: nil, created_before: nil, created_after: nil,
+                           observation_created_before: nil, observation_created_after: nil, observed_before: nil,
+                           observed_after: nil, id_below: nil, id_above: nil, only_id: nil, order: nil, order_by: nil,
+                           page: nil, per_page: nil, verbose: false)
+    Request.new(id: id,
+                current_taxon: current_taxon,
+                own_observation: own_observation,
+                is_change: is_change,
+                taxon_active: taxon_active,
+                observation_taxon_active: observation_taxon_active,
+                rank: rank,
+                observation_rank: observation_rank,
+                user_id: user_id,
+                user_login: user_login,
+                current: current,
+                category: category,
+                place_id: place_id,
+                quality_grade: quality_grade,
+                taxon_id: taxon_id,
+                observation_taxon_id: observation_taxon_id,
+                iconic_taxon_id: iconic_taxon_id,
+                observation_iconic_taxon_id: observation_iconic_taxon_id,
+                rank_lowest: rank_lowest,
+                rank_highest: rank_highest,
+                observation_rank_lowest: observation_rank_lowest,
+                observation_rank_highest: observation_rank_highest,
+                without_taxon_id: without_taxon_id,
+                without_observation_taxon_id: without_observation_taxon_id,
+                created_before: created_before,
+                created_after: created_after,
+                observation_created_before: observation_created_before,
+                observation_created_after: observation_created_after,
+                observed_before: observed_before,
+                observed_after: observed_after,
+                id_below: id_below,
+                id_above: id_above,
+                only_id: only_id,
+                order: order,
+                order_by: order_by,
+                page: page,
+                per_page: per_page,
+                verbose: verbose).perform
+  end
+
   # Search places, projects, taxa, users
   # @param q [String, nil] A search query
   # @param sources [Array, String, nil] Type of record to search (places, projects, taxa, users)
