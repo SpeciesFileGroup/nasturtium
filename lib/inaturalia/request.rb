@@ -15,6 +15,7 @@ module Inaturalia
       @endpoint = args[:endpoint]
       @verbose = args[:verbose]
       @q = args[:q]
+      @search_on = args[:search_on]
       @sources = args[:sources]
       @place_id = args[:place_id]
       @preferred_place_id = args[:preferred_place_id]
@@ -24,16 +25,88 @@ module Inaturalia
       @parent_id = args[:parent_id]
       @rank = args[:rank]
       @rank_level = args[:rank_level]
+      @id = args[:id]
+      @not_id = args[:not_id]
       @id_above = args[:id_above]
       @id_below = args[:id_below]
       @only_id = args[:only_id]
       @all_names = args[:all_names]
-
+      @acc = args[:acc]
+      @captive = args[:captive]
+      @endemic = args[:endemic]
+      @geo = args[:geo]
+      @identified = args[:identified]
+      @introduced = args[:introduced]
+      @mappable = args[:mappable]
+      @native = args[:native]
+      @out_of_range = args[:out_of_range]
+      @pcid = args[:pcid]
+      @photos = args[:photos]
+      @popular = args[:popular]
+      @sounds = args[:sounds]
+      @taxon_is_active = args[:taxon_is_active]
+      @threatened = args[:threatened]
+      @verifiable = args[:verifiable]
+      @licensed = args[:licensed]
+      @photo_licensed = args[:photo_licensed]
+      @photo_license = args[:photo_license]
+      @sound_license = args[:sound_license]
+      @ofv_datatype = args[:ofv_datatype]
+      @project_id = args[:project_id]
+      @site_id = args[:site_id]
+      @without_taxon_id = args[:without_taxon_id]
+      @taxon_name = args[:taxon_name]
+      @user_id = args[:user_id]
+      @user_login = args[:user_login]
+      @ident_user_id = args[:ident_user_id]
+      @day = args[:day]
+      @month = args[:month]
+      @year = args[:year]
+      @term_id = args[:term_id]
+      @without_term_id = args[:without_term_id]
+      @term_value_id = args[:term_value_id]
+      @without_term_value_id = args[:without_term_value_id]
+      @acc_below = args[:acc_below]
+      @acc_below_or_unknown = args[:acc_below_or_unknown]
+      @acc_above = args[:acc_above]
+      @observed_before = args[:observed_before]
+      @observed_on = args[:observed_on]
+      @observed_after = args[:observed_after]
+      @created_before = args[:created_before]
+      @created_on = args[:created_on]
+      @created_after = args[:created_after]
+      @unobserved_by_user_id = args[:unobserved_by_user_id]
+      @apply_project_rules_for = args[:apply_project_rules_for]
+      @conservation_status = args[:conservation_status]
+      @conservation_status_authority = args[:conservation_status_authority]
+      @conservation_status_iucn = args[:conservation_status_iucn]
+      @geoprivacy = args[:geoprivacy]
+      @taxon_geoprivacy = args[:taxon_geoprivacy]
+      @rank_lowest = args[:rank_lowest]
+      @rank_highest = args[:rank_highest]
+      @iconic_taxa = args[:iconic_taxa]
+      @identifications = args[:identifications]
+      @latitude = args[:latitude]
+      @longitude = args[:longitude]
+      @radius = args[:radius]
+      @ne_latitude = args[:ne_latitude]
+      @ne_longitude = args[:ne_longitude]
+      @sw_latitude = args[:sw_latitude]
+      @sw_longitude = args[:sw_longitude]
+      @list_id = args[:list_id]
+      @not_in_project = args[:not_in_project]
+      @not_matching_project_rules_for = args[:not_matching_project_rules_for]
+      @quality_grade = args[:quality_grade]
+      @updated_since = args[:updated_since]
+      @viewer_id = args[:viewer_id]
+      @reviewed = args[:reviewed]
+      @ttl = args[:ttl]
       @page = args[:page]
       @per_page = args[:per_page]
       @order = args[:order]
       @order_by = args[:order_by]
       @options = args[:options] # TODO: not added at inaturalia.rb
+      @headers = args[:headers]
     end
 
     # TODO: arrays are done like this source[]=users,projects but sometime without the brackets?
@@ -41,6 +114,7 @@ module Inaturalia
 
       args = {
         q: @q,
+        search_on: @search_on,
         sources: @sources,
         place_id: @place_id,
         preferred_place_id: @preferred_place_id,
@@ -49,15 +123,88 @@ module Inaturalia
         parent_id: @parent_id,
         rank: @rank,
         rank_level: @rank_level,
+        id: @id,
         id_above: @id_above,
         id_below: @id_below,
         only_id: @only_id,
         all_names: @all_names,
+        not_id: @not_id,
+        acc: @acc,
+        captive: @captive,
+        endemic: @endemic,
+        geo: @geo,
+        identified: @identified,
+        introduced: @introduced,
+        mappable: @mappable,
+        native: @native,
+        out_of_range: @out_of_range,
+        pcid: @pcid,
+        photos: @photos,
+        popular: @popular,
+        sounds: @sounds,
+        taxon_is_active: @taxon_is_active,
+        threatened: @threatened,
+        verifiable: @verifiable,
+        licensed: @licensed,
+        photo_licensed: @photo_licensed,
+        photo_license: @photo_license,
+        sound_license: @sound_license,
+        ofv_datatype: @ofv_datatype,
+        project_id: @project_id,
+        site_id: @site_id,
+        without_taxon_id: @without_taxon_id,
+        taxon_name: @taxon_name,
+        user_id: @user_id,
+        user_login: @user_login,
+        ident_user_id: @ident_user_id,
+        day: @day,
+        month: @month,
+        year: @year,
+        term_id: @term_id,
+        without_term_id: @without_term_id,
+        term_value_id: @term_value_id,
+        without_term_value_id: @without_term_value_id,
+        acc_below: @acc_below,
+        acc_below_or_unknown: @acc_below_or_unknown,
+        acc_above: @acc_above,
+        observed_before: @observed_before,
+        observed_on: @observed_on,
+        d1: @observed_after,
+        d2: @observed_before,
+        created_on: @created_on,
+        created_d1: @created_after,
+        created_d2: @created_before,
+        unobserved_by_user_id: @unobserved_by_user_id,
+        apply_project_rules_for: @apply_project_rules_for,
+        cs: @conservation_status,
+        csa: @conservation_status_authority,
+        csi: @conservation_status_iucn,
+        geoprivacy: @geoprivacy,
+        taxon_geoprivacy: @taxon_geoprivacy,
+        lrank: @rank_lowest,
+        hrank: @rank_highest,
+        iconic_taxa: @iconic_taxa,
+        identifications: @identifications,
+        lat: @latitude,
+        lng: @longitude,
+        radius: @radius,
+        nelat: @ne_latitude,
+        nelng: @ne_longitude,
+        swlat: @sw_latitude,
+        swlng: @sw_longitude,
+        list_id: @list_id,
+        not_in_project: @not_in_project,
+        not_matching_project_rules_for: @not_matching_project_rules_for,
+        quality_grade: @quality_grade,
+        updated_since: @updated_since,
+        viewer_id: @viewer_id,
+        reviewed: @reviewed,
+        ttl: @ttl,
         locale: @locale,
         page: @page,
         per_page: @per_page,
         order: @order,
-        order_by: @order_by
+        order_by: @order_by,
       }
       opts = args.delete_if { |_k, v| v.nil? }
 
@@ -82,13 +229,16 @@ module Inaturalia
 
       res = conn.get(endpoint, opts)
 
-      # Handles endpoints that do not return JSON
-      begin
-        MultiJson.load(res.body)
-      rescue MultiJson::ParseError
-        res.body
+      if @headers
+        res.headers
+      else
+        # Handles endpoints that do not return JSON
+        begin
+          MultiJson.load(res.body)
+        rescue MultiJson::ParseError
+          res.body
+        end
       end
-      
     end
   end
 end
