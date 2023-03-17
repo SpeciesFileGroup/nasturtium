@@ -22,9 +22,12 @@ module Inaturalia
       @locale = args[:locale]
       @is_active = args[:is_active]
       @taxon_id = args[:taxon_id]
+      @observation_taxon_id = args[:observation_taxon_id]
       @parent_id = args[:parent_id]
       @rank = args[:rank]
       @rank_level = args[:rank_level]
+      @observation_rank = args[:observation_rank]
+      @category = args[:category]
       @id = args[:id]
       @not_id = args[:not_id]
       @id_above = args[:id_above]
@@ -32,6 +35,10 @@ module Inaturalia
       @only_id = args[:only_id]
       @all_names = args[:all_names]
       @acc = args[:acc]
+      @current = args[:current]
+      @current_taxon = args[:current_taxon]
+      @own_observation = args[:own_observation]
+      @is_change = args[:is_change]
       @captive = args[:captive]
       @endemic = args[:endemic]
       @geo = args[:geo]
@@ -44,6 +51,8 @@ module Inaturalia
       @photos = args[:photos]
       @popular = args[:popular]
       @sounds = args[:sounds]
+      @taxon_active = args[:taxon_active]
+      @observation_taxon_active = args[:observation_taxon_active]
       @taxon_is_active = args[:taxon_is_active]
       @threatened = args[:threatened]
       @verifiable = args[:verifiable]
@@ -55,6 +64,7 @@ module Inaturalia
       @project_id = args[:project_id]
       @site_id = args[:site_id]
       @without_taxon_id = args[:without_taxon_id]
+      @without_observation_taxon_id = args[:without_observation_taxon_id]
       @taxon_name = args[:taxon_name]
       @user_id = args[:user_id]
       @user_login = args[:user_login]
@@ -69,12 +79,16 @@ module Inaturalia
       @acc_below = args[:acc_below]
       @acc_below_or_unknown = args[:acc_below_or_unknown]
       @acc_above = args[:acc_above]
+      @before = args[:before]
+      @after= args[:after]
       @observed_before = args[:observed_before]
       @observed_on = args[:observed_on]
       @observed_after = args[:observed_after]
       @created_before = args[:created_before]
       @created_on = args[:created_on]
       @created_after = args[:created_after]
+      @observation_created_after = args[:observation_created_after]
+      @observation_created_before = args[:observation_created_before]
       @unobserved_by_user_id = args[:unobserved_by_user_id]
       @apply_project_rules_for = args[:apply_project_rules_for]
       @conservation_status = args[:conservation_status]
@@ -84,7 +98,11 @@ module Inaturalia
       @taxon_geoprivacy = args[:taxon_geoprivacy]
       @rank_lowest = args[:rank_lowest]
       @rank_highest = args[:rank_highest]
+      @observation_rank_lowest = args[:observation_rank_lowest]
+      @observation_rank_highest = args[:observation_rank_highest]
       @iconic_taxa = args[:iconic_taxa]
+      @iconic_taxon_id = args[:iconic_taxon_id]
+      @observation_iconic_taxon_id = args[:observation_iconic_taxon_id]
       @identifications = args[:identifications]
       @latitude = args[:latitude]
       @longitude = args[:longitude]
@@ -120,8 +138,11 @@ module Inaturalia
         preferred_place_id: @preferred_place_id,
         is_active: @is_active,
         taxon_id: @taxon_id,
+        observation_taxon_id: @observation_taxon_id,
         parent_id: @parent_id,
         rank: @rank,
+        observation_rank: @observation_rank,
+        category: @category,
         rank_level: @rank_level,
         id: @id,
         id_above: @id_above,
@@ -130,6 +151,10 @@ module Inaturalia
         all_names: @all_names,
         not_id: @not_id,
         acc: @acc,
+        current: @current,
+        current_taxon: @current_taxon,
+        own_observation: @own_observation,
+        is_change: @is_change,
         captive: @captive,
         endemic: @endemic,
         geo: @geo,
@@ -142,6 +167,8 @@ module Inaturalia
         photos: @photos,
         popular: @popular,
         sounds: @sounds,
+        taxon_active: @taxon_active,
+        observation_taxon_active: @observation_taxon_active,
         taxon_is_active: @taxon_is_active,
         threatened: @threatened,
         verifiable: @verifiable,
@@ -153,6 +180,7 @@ module Inaturalia
         project_id: @project_id,
         site_id: @site_id,
         without_taxon_id: @without_taxon_id,
+        without_observation_taxon_id: @without_observation_taxon_id,
         taxon_name: @taxon_name,
         user_id: @user_id,
         user_login: @user_login,
@@ -167,13 +195,16 @@ module Inaturalia
         acc_below: @acc_below,
         acc_below_or_unknown: @acc_below_or_unknown,
         acc_above: @acc_above,
-        observed_before: @observed_before,
+        d1: @after,
+        d2: @before,
+        observed_d1: @observed_after,
         observed_on: @observed_on,
-        d1: @observed_after,
-        d2: @observed_before,
+        observed_d2: @observed_before,
         created_on: @created_on,
         created_d1: @created_after,
         created_d2: @created_before,
+        observation_created_d1: @observation_created_after,
+        observation_created_d2: @observation_created_before,
         unobserved_by_user_id: @unobserved_by_user_id,
         apply_project_rules_for: @apply_project_rules_for,
         cs: @conservation_status,
@@ -183,7 +214,11 @@ module Inaturalia
         taxon_geoprivacy: @taxon_geoprivacy,
         lrank: @rank_lowest,
         hrank: @rank_highest,
+        observation_lrank: @observation_rank_lowest,
+        observation_hrank: @observation_rank_highest,
         iconic_taxa: @iconic_taxa,
+        iconic_taxon_id: @iconic_taxon_id,
+        observation_iconic_taxon_id: @observation_iconic_taxon_id,
         identifications: @identifications,
         lat: @latitude,
         lng: @longitude,

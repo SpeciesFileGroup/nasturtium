@@ -586,7 +586,7 @@ class TestObservations < Test::Unit::TestCase
 
   def test_observations_obs_date_range
     VCR.use_cassette("test_observations_obs_date_range") do
-      res = Inaturalia.observations(observed_after: '2020-01-01', observed_before: '2020-01-03', per_page: @per_page)
+      res = Inaturalia.observations(after: '2020-01-01', before: '2020-01-03', per_page: @per_page)
       res['results'].each do |r|
         assert_include(%w[2020-01-01 2020-01-02 2020-01-03], r['observed_on'])
       end
@@ -740,7 +740,7 @@ class TestObservations < Test::Unit::TestCase
 
   # TODO: not really sure how lists work, and there is no lists endpoint to find them?
   def test_observations_list_id
-    VCR.use_cassette("test_identifications_list_id") do
+    VCR.use_cassette("test_observations_list_id") do
       total = Inaturalia.observations(per_page: 0)
       res = Inaturalia.observations(list_id: 92876, per_page: @per_page)
       assert_true(res['total_results'] < total['total_results'])

@@ -36,8 +36,8 @@ module Inaturalia
   # @param observation_rank_highest [String, nil] The observation's taxon must have this rank or lower
   # @param without_taxon_id [String, Integer, nil] Exclude this comma-separated list of identification taxon IDs and their descendants
   # @param without_observation_taxon_id [String, Integer, nil] Exclude this comma-separated list of observation taxon IDs and their descendants
-  # @param created_before [String, nil] Identification record was created before this time (d2)
-  # @param created_after [String, nil] Identification record was created after this time (d1)
+  # @param before [String, nil] Identified before this time (d2)
+  # @param after [String, nil] Identified after this time (d1)
   # @param observation_created_before [String, nil] Observation record was created before this time (observation_created_d2)
   # @param observation_created_after [String, nil] Observation record was created after this time (observation_created_d1)
   # @param observed_before [String, nil] Observed before this time (observed_d2)
@@ -58,11 +58,13 @@ module Inaturalia
                            quality_grade: nil, taxon_id: nil, observation_taxon_id: nil, iconic_taxon_id: nil,
                            observation_iconic_taxon_id: nil, rank_lowest: nil, rank_highest: nil,
                            observation_rank_lowest: nil, observation_rank_highest: nil, without_taxon_id: nil,
-                           without_observation_taxon_id: nil, created_before: nil, created_after: nil,
+                           without_observation_taxon_id: nil, before: nil, after: nil,
                            observation_created_before: nil, observation_created_after: nil, observed_before: nil,
                            observed_after: nil, id_below: nil, id_above: nil, only_id: nil, order: nil, order_by: nil,
                            page: nil, per_page: nil, verbose: false)
-    Request.new(id: id,
+    endpoint = 'identifications'
+    Request.new(endpoint: endpoint,
+                id: id,
                 current_taxon: current_taxon,
                 own_observation: own_observation,
                 is_change: is_change,
@@ -86,8 +88,8 @@ module Inaturalia
                 observation_rank_highest: observation_rank_highest,
                 without_taxon_id: without_taxon_id,
                 without_observation_taxon_id: without_observation_taxon_id,
-                created_before: created_before,
-                created_after: created_after,
+                before: before,
+                after: after,
                 observation_created_before: observation_created_before,
                 observation_created_after: observation_created_after,
                 observed_before: observed_before,
@@ -188,9 +190,9 @@ module Inaturalia
   # @param acc_above [String, nil] Positional accuracy must be above value
   # @param acc_below [String, nil] Positional accuracy must be below value
   # @param acc_below_or_unknown [String, nil] Positional accuracy must be below value or unknown
-  # @param observed_before [String, nil] Must have been observed on or before this date (d2)
+  # @param before [String, nil] Must have been observed on or before this date (d2)
+  # @param after [String, nil] Must have been observed on or after this date (d1)
   # @param observed_on [String, nil] Must have been observed on this date
-  # @param observed_after [String, nil] Must have been observed on or after this date (d1)
   # @param created_before [String, nil] Must have been created on or before this date (created_d2)
   # @param created_on [String, nil] Must have been created on this date
   # @param created_after [String, nil] Must have been created on or before this date (created_d1)
@@ -242,8 +244,8 @@ module Inaturalia
                         rank: nil, site_id: nil, taxon_id: nil, without_taxon_id: nil, taxon_name: nil, user_id: nil,
                         user_login: nil, ident_user_id: nil, day: nil, month: nil, year: nil, term_id: nil,
                         without_term_id: nil, term_value_id: nil, without_term_value_id: nil, acc_below: nil,
-                        acc_below_or_unknown: nil, acc_above: nil, observed_before: nil, observed_on: nil,
-                        observed_after: nil, created_before: nil, created_on: nil, created_after: nil,
+                        acc_below_or_unknown: nil, acc_above: nil, before: nil, observed_on: nil,
+                        after: nil, created_before: nil, created_on: nil, created_after: nil,
                         unobserved_by_user_id: nil, apply_project_rules_for: nil, conservation_status: nil,
                         conservation_status_authority: nil, conservation_status_iucn: nil, geoprivacy: nil,
                         taxon_geoprivacy: nil, rank_lowest: nil, rank_highest: nil, iconic_taxa: nil,
@@ -302,9 +304,9 @@ module Inaturalia
                 acc_below: acc_below,
                 acc_below_or_unknown: acc_below_or_unknown,
                 acc_above: acc_above,
-                observed_before: observed_before,
+                before: before,
                 observed_on: observed_on,
-                observed_after: observed_after,
+                after: after,
                 created_before: created_before,
                 created_on: created_on,
                 created_after: created_after,
