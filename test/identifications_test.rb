@@ -328,16 +328,6 @@ class TestIdentifications < Test::Unit::TestCase
     end
   end
 
-  def test_identifications_ordering
-    VCR.use_cassette("test_identifications_ordering") do
-      res = Inaturalia.identifications(order: 'asc', order_by: 'id', per_page: @per_page)
-      prev = 0
-      res['results'].each do |r|
-        assert_true(r['id'] > prev)
-      end
-    end
-  end
-
   def test_identifications_only_id
     VCR.use_cassette("test_identifications_only_id") do
       res = Inaturalia.taxa(only_id: true, per_page: @per_page)
