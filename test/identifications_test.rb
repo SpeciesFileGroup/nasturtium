@@ -217,7 +217,7 @@ class TestIdentifications < Test::Unit::TestCase
     VCR.use_cassette("test_identifications_taxon_rank_highest") do
       res = Inaturalia.identifications(rank_highest: 'genus', per_page: @per_page)
       res['results'].each do |r|
-        assert_include(%w[genus section species subspecies], r['taxon']['rank'])
+        assert_include(%w[genus section species subspecies variety], r['taxon']['rank'])
       end
     end
   end
@@ -235,7 +235,7 @@ class TestIdentifications < Test::Unit::TestCase
     VCR.use_cassette("test_identifications_taxon_obs_rank_highest") do
       res = Inaturalia.identifications(observation_rank_highest: 'genus', per_page: @per_page)
       res['results'].each do |r|
-        assert_include(%w[genus section species subspecies], r['observation']['taxon']['rank'])
+        assert_include(%w[genus section species subspecies variety], r['observation']['taxon']['rank'])
       end
     end
   end
