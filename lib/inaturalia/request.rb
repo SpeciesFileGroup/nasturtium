@@ -15,6 +15,8 @@ module Inaturalia
       @endpoint = args[:endpoint]
       @verbose = args[:verbose]
       @q = args[:q]
+      @admin_level = args[:admin_level]
+      @name = args[:name]
       @search_on = args[:search_on]
       @sources = args[:sources]
       @place_id = args[:place_id]
@@ -132,6 +134,8 @@ module Inaturalia
 
       args = {
         q: @q,
+        admin_level: @admin_level,
+        name: @name,
         search_on: @search_on,
         sources: @sources,
         place_id: @place_id,

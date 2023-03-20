@@ -46,10 +46,11 @@ module Inaturalia
   # @param id_above [String, Integer, nil] The identification ID must be above the provided value
   # @param only_id [Boolean, nil] Only return record IDs
   #
-  # @param page
-  # @param per_page
-  # @param order
-  # @param order_by
+  # @param order [String, nil] Ascending or descending sort order (asc, desc)
+  # @param order_by [String, nil] The parameter to sort by (created_at, id)
+  # @param page [Integer, nil] The results page number
+  # @param per_page [Integer, nil] The results limit
+  # @param verbose [Boolean] Print headers to STDOUT
   #
   # @return [Hash, Boolean] A hash of identification results
   def self.identifications(id: nil, current_taxon: nil, own_observation: nil, is_change: nil,
@@ -102,6 +103,46 @@ module Inaturalia
                 page: page,
                 per_page: per_page,
                 verbose: verbose).perform
+  end
+
+  # Get places
+  # @param id [String, Integer] A comma-separated list of place IDs
+  # @param admin_level [String, Integer, nil] A comma-separated list of admin levels (-10: continent, 0: country, 10: state, 20: county, 30: town, 100: park)
+  #
+  # @return [Hash, Boolean] A hash with places results
+  def self.places_id(id, admin_level: nil, verbose: false)
+    endpoint = "places/#{id}"
+    Request.new(endpoint: endpoint, admin_level: admin_level, verbose: verbose).perform
+  end
+
+  # Suggest places
+  # @param q [String] A place name must start with this query
+  #
+  # @param order_by [String, nil] The parameter to sort by (area)  # TODO: iNaturalist bug? doesn't seem to affect sorting in the API?
+  # @param per_page [Integer, nil] The results limit
+  # @param verbose [Boolean] Print headers to STDOUT
+  #
+  # @return [Hash, Boolean] A hash with suggest places results
+  def self.places_autocomplete(q, order_by: nil, per_page: nil, verbose: false)
+    endpoint = "places/autocomplete"
+    Request.new(endpoint: endpoint, q: q, order_by: order_by, per_page: per_page, verbose: verbose).perform
+  end
+
+  # https://api.inaturalist.org/v1/places/nearby?nelat=40.346036&nelng=-87.951568&swlat=39.935393&swlng=-88.628846
+  # Get nearby places
+  # @param ne_latitude [Double, nil] Get nearby places within provided (nelat) bounding box (ne_latitude, ne_longitude, sw_latitude, sw_longitude)
+  # @param ne_longitude [Double, nil] Get nearby places within provided (nelng) bounding box (ne_latitude, ne_longitude, sw_latitude, sw_longitude)
+  # @param sw_latitude [Double, nil] Get nearby places within provided (swlat) bounding box (ne_latitude, ne_longitude, sw_latitude, sw_longitude)
+  # @param sw_longitude [Double, nil] Get nearby places within provided (swlng) bounding box (ne_latitude, ne_longitude, sw_latitude, sw_longitude)
+  # @param name [String, nil] Place name must match this value  # TODO: iNaturalist bug? you can't provide the last word of a name (e.g., River Bend Forest works, but River Bend Forest Preserve doesn't work)
+  #
+  # @param per_page [Integer, nil] The results limit
+  # @param verbose [Boolean] Print headers to STDOUT
+  #
+  # @return [Hash, Boolean] A hash with suggest places results
+  def self.places_nearby(ne_latitude, ne_longitude, sw_latitude, sw_longitude, name: nil, verbose: false)
+    endpoint = "places/nearby"
+    Request.new(endpoint: endpoint, ne_latitude: ne_latitude, ne_longitude: ne_longitude, sw_latitude: sw_latitude, sw_longitude: sw_longitude, name: name, verbose: verbose).perform
   end
 
   # Search places, projects, taxa, users
