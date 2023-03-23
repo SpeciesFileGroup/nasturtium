@@ -173,7 +173,58 @@ module Inaturalia
     ).perform
   end
 
-  # TODO: iNatualist API documentation does not include sound_license
+  # Get user
+  # @param id [Integer] The user ID
+  #
+  # @param verbose [Boolean] Print headers to STDOUT
+  #
+  # @return [Hash, Boolean] A hash with user results
+  def self.user(id, verbose: false)
+    endpoint = "users/#{id}"
+    Request.new(endpoint: endpoint, verbose: verbose).perform
+  end
+
+  # Get logged in user
+  # @param id [Integer] The user ID
+  #
+  # @param verbose [Boolean] Print headers to STDOUT
+  #
+  # @return [Hash, Boolean] A hash with user results
+  def self.user_me(verbose: false)
+    endpoint = "users/me"
+    Request.new(endpoint: endpoint, verbose: verbose).perform
+  end
+
+  # Get user's projects
+  # @param id [Integer] The user ID
+  # @param rule_details [Boolean, nil] Return more details about project rules
+  # @param project_type [String, nil] Filter by project type (collection, contest, traditional, umbrella)
+  #
+  # @param page [Integer, nil] The results page number
+  # @param per_page [Integer, nil] The results limit
+  # @param verbose [Boolean] Print headers to STDOUT
+  #
+  # @return [Hash, Boolean] A hash with user results
+  def self.user_projects(id, rule_details: nil, project_type: nil, page: nil, per_page: nil, verbose: false)
+    endpoint = "users/#{id}/projects"
+    Request.new(endpoint: endpoint, rule_details: rule_details, project_type: project_type,
+                page: page, per_page: per_page, verbose: verbose).perform
+  end
+
+  # Get user suggestions
+  # @param q [String] The username must begin with this query
+  # @param project_id [Integer, nil] Only show members of this project ID
+  #
+  # @param per_page [Integer, nil] The results limit
+  # @param verbose [Boolean] Print headers to STDOUT
+  #
+  # @return [Hash, Boolean] A hash with user results
+  def self.user_autocomplete(q, project_id: nil, per_page: nil, verbose: false)
+    endpoint = "users/autocomplete"
+    Request.new(endpoint: endpoint, q: q, project_id: project_id, per_page: per_page, verbose: verbose).perform
+  end
+
+  # TODO: iNatualist API documentation does not include sound_license?
 
   # Get observations
   #

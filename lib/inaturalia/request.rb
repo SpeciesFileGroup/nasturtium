@@ -64,6 +64,7 @@ module Inaturalia
       @sound_license = args[:sound_license]
       @ofv_datatype = args[:ofv_datatype]
       @project_id = args[:project_id]
+      @project_type = args[:project_type]
       @site_id = args[:site_id]
       @without_taxon_id = args[:without_taxon_id]
       @without_observation_taxon_id = args[:without_observation_taxon_id]
@@ -182,6 +183,7 @@ module Inaturalia
         sound_license: @sound_license,
         ofv_datatype: @ofv_datatype,
         project_id: @project_id,
+        project_type: @project_type,
         site_id: @site_id,
         without_taxon_id: @without_taxon_id,
         without_observation_taxon_id: @without_observation_taxon_id,
