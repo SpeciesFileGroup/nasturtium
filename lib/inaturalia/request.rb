@@ -13,6 +13,7 @@ module Inaturalia
 
     def initialize(**args)
       @endpoint = args[:endpoint]
+      @method = args[:method]
       @verbose = args[:verbose]
       @q = args[:q]
       @admin_level = args[:admin_level]
@@ -69,6 +70,10 @@ module Inaturalia
       @without_taxon_id = args[:without_taxon_id]
       @without_observation_taxon_id = args[:without_observation_taxon_id]
       @taxon_name = args[:taxon_name]
+      @user = args[:user]
+      @password = args[:password]
+      @body = args[:body]
+      @authenticity_token = args[:authenticity_token]
       @user_id = args[:user_id]
       @user_login = args[:user_login]
       @ident_user_id = args[:ident_user_id]
@@ -128,6 +133,7 @@ module Inaturalia
       @order_by = args[:order_by]
       @options = args[:options] # TODO: not added at inaturalia.rb
       @headers = args[:headers]
+      @override_base_url = args[:base_url]
     end
 
     # TODO: arrays are done like this source[]=users,projects but sometime without the brackets?
@@ -188,6 +194,9 @@ module Inaturalia
         without_taxon_id: @without_taxon_id,
         without_observation_taxon_id: @without_observation_taxon_id,
         taxon_name: @taxon_name,
+        'user[email]': @user,
+        'user[password]': @password,
+        authenticity_token: @authenticity_token,
         user_id: @user_id,
         user_login: @user_login,
         ident_user_id: @ident_user_id,
@@ -251,14 +260,20 @@ module Inaturalia
 
       Faraday::Utils.default_space_encoding = "+"
 
+      if @override_base_url.nil?
+        @base_url = Inaturalia.base_url
+      else
+        @base_url = @override_base_url
+      end
+
       conn = if verbose
-               Faraday.new(url: Inaturalia.base_url) do |f|
+               Faraday.new(url: @base_url) do |f|
                  f.response :logger
                  f.use FaradayMiddleware::RaiseHttpException
                  f.adapter Faraday.default_adapter
                end
              else
-               Faraday.new(url: Inaturalia.base_url) do |f|
+               Faraday.new(url: @base_url) do |f|
                  f.use FaradayMiddleware::RaiseHttpException
                  f.adapter Faraday.default_adapter
                end
@@ -268,7 +283,14 @@ module Inaturalia
       conn.headers[:user_agent] = make_user_agent
       conn.headers["X-USER-AGENT"] = make_user_agent
 
-      res = conn.get(endpoint, opts)
+      if @method == "POST"
+        puts '11111111111111111111111111111111111'
+        conn.headers['Accept'] = 'application/json,text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8'
+        conn.headers['Content-Type'] = 'application/x-www-form-urlencoded'
+        res = conn.post(endpoint, @body)
+      else
+        res = conn.get(endpoint, opts)
+      end
 
       if @headers
         res.headers
