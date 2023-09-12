@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
 require "erb"
-require 'nokogiri'
+#require 'nokogiri'
 require 'open-uri'
+require_relative "inaturalia/error"
 require_relative "inaturalia/version"
 require_relative "inaturalia/request"
 require "inaturalia/helpers/configuration"
@@ -17,17 +18,17 @@ module Inaturalia
   # Get API token
   # @param user [String]
   # @param password [String]
-  def self.api_token(user, password, verbose: false)
-    doc = Nokogiri::HTML(URI.open('https://www.inaturalist.org/users/api_token'))
-    csrf_token = CGI.escape(doc.at('meta[name="csrf-token"]')['content'])
+  # def self.api_token(user, password, verbose: false)
+  #   doc = Nokogiri::HTML(URI.open('https://www.inaturalist.org/users/api_token'))
+  #   csrf_token = CGI.escape(doc.at('meta[name="csrf-token"]')['content'])
 
-    puts csrf_token
-    # https://www.inaturalist.org/users/api_token
-    body = "utf8=%E2%9C%93&authenticity_token=#{csrf_token}&user%5Bemail%5D=#{user}&user%5Bpassword%5D=#{password}&user%5Bremember_me%5D=0"
-    endpoint = 'users/api_token'
-    res = Request.new(method: 'POST', base_url: 'https://www.inaturalist.org/', endpoint: endpoint, body: body, verbose: verbose).perform
-    puts res
-  end
+  #   puts csrf_token
+  #   # https://www.inaturalist.org/users/api_token
+  #   body = "utf8=%E2%9C%93&authenticity_token=#{csrf_token}&user%5Bemail%5D=#{user}&user%5Bpassword%5D=#{password}&user%5Bremember_me%5D=0"
+  #   endpoint = 'users/api_token'
+  #   res = Request.new(method: 'POST', base_url: 'https://www.inaturalist.org/', endpoint: endpoint, body: body, verbose: verbose).perform
+  #   puts res
+  # end
 
   # Get identifications
   # @param id [String, Integer, nil] An array of identification IDs

@@ -1,5 +1,5 @@
 require_relative "faraday" # !! Potential ruby 3.0 difference in module loading? relative differs from Serrano
-require "faraday_middleware"
+require "faraday/follow_redirects"
 require_relative "utils"
 
 module Inaturalia
@@ -269,12 +269,12 @@ module Inaturalia
       conn = if verbose
                Faraday.new(url: @base_url) do |f|
                  f.response :logger
-                 f.use FaradayMiddleware::RaiseHttpException
+                 f.use Faraday::InaturaliaErrors::Middleware
                  f.adapter Faraday.default_adapter
                end
              else
                Faraday.new(url: @base_url) do |f|
-                 f.use FaradayMiddleware::RaiseHttpException
+                 f.use Faraday::InaturaliaErrors::Middleware
                  f.adapter Faraday.default_adapter
                end
              end
