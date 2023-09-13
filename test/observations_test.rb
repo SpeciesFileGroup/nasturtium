@@ -1,4 +1,5 @@
 require_relative "test_helper"
+require 'date'
 
 class TestObservations < Test::Unit::TestCase
   def setup
@@ -305,6 +306,15 @@ class TestObservations < Test::Unit::TestCase
       res = Nasturtium.observations(verifiable: false, per_page: @per_page)
       res['results'].each do |r|
         assert_equal('casual', r['quality_grade'])
+      end
+    end
+  end
+
+  def test_observations_quality_grade
+    VCR.use_cassette('test_observations_quality_grade') do
+      res = Nasturtium.observations(quality_grade: 'research', per_page: @per_page)
+      res['results'].each do |r|
+        assert_equal('research', r['quality_grade'])
       end
     end
   end
@@ -757,12 +767,90 @@ class TestObservations < Test::Unit::TestCase
     end
   end
 
+  def test_observations_q_search_on
+    VCR.use_cassette("test_observations_q_search_on") do
+      q = 'purple'
+      res = Nasturtium.observations(q: q, search_on: 'tags', per_page: @per_page)
+      res['results'].each do |r|
+        passed = false
+        r['tags'].each do |t|
+          if t.downcase.include? 'purple'
+            passed = true
+          end
+        end
+        assert_true(passed)
+      end
+    end
+  end
+
   def test_observations_ttl
     VCR.use_cassette("test_observations_ttl") do
       res = Nasturtium.observations(ttl: 12345, per_page: 0, headers: true)
       assert_equal('public, max-age=12345', res['cache-control'])
     end
   end
+
+  def test_observations_updated_since
+    VCR.use_cassette("test_observations_updated_since") do
+      date_str = '2023-09-11T23:59:59-00:00'
+      date = DateTime.parse(date_str)
+      res = Nasturtium.observations(updated_since: date_str, order_by: 'created', order: 'asc', per_page: @per_page)
+      res['results'].each do |r|
+        assert_true(date <= DateTime.parse(r['updated_at']))
+      end
+    end
+  end
+
+  def test_observations_reviewed
+    VCR.use_cassette("test_observations_reviewed") do
+      viewer = 20717
+      res = Nasturtium.observations(reviewed: true, viewer_id: viewer, per_page: @per_page)
+      res['results'].each do |r|
+        assert_includes(r['reviewed_by'], viewer)
+      end
+    end
+  end
+
+  def test_observations_locale
+
+    def is_zh(char)
+      if char >= 0x4E00 && char <= 0x9FFF
+        return true
+      end
+      if char >= 0x3400 && char <= 0x4DBF
+        return true
+      end
+      if char >= 0x20000 && char <= 0x2A6DF
+        return true
+      end
+      if char >= 0x2A700 && char <= 0x2B73F
+        return true
+      end
+      return false
+    end
+
+    VCR.use_cassette("test_observations_locale") do
+      res = Nasturtium.observations(locale: 'zh')
+      res['results'].each do |r|
+        unless r['taxon'].nil? or r['taxon']['preferred_common_name'].nil?
+          chars = r.dig('taxon', 'preferred_common_name').unpack('U*')
+          chars.each do |char|
+            assert_true(is_zh(char))
+          end
+        end
+      end
+    end
+  end
+
+  # TODO: does preferred_place_id work? setting preferred_place_id=6903, returns common names in English for some taxa
+  # def test_observations_preferred_place_id
+  #   VCR.use_cassette("test_observations_preferred_place_id") do
+  #     res = Nasturtium.observations(preferred_place_id: 6903, per_page: @per_page)
+  #     res['results'].each do |r|
+  #
+  #     end
+  #   end
+  # end
 
   def test_observations_pagination_offset
     VCR.use_cassette("test_observations_pagination") do
