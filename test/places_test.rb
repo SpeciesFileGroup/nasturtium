@@ -8,28 +8,28 @@ class TestPlaces < Test::Unit::TestCase
 
   def test_places_id
     VCR.use_cassette("test_places_id") do
-      res = Inaturalia.places_id(1000)
+      res = Nasturtium.places_id(1000)
       assert_equal(1000, res['results'][0]['id'])
     end
   end
 
   def test_places_id_admin_level
     VCR.use_cassette("test_places_id_admin_level") do
-      res = Inaturalia.places_id(1000, admin_level: 100)
+      res = Nasturtium.places_id(1000, admin_level: 100)
       assert_equal(0, res['total_results'])
     end
   end
 
   def test_places_autocomplete
     VCR.use_cassette("test_places_autocomplete") do
-      res = Inaturalia.places_autocomplete('Kickapoo Rail Trail')
+      res = Nasturtium.places_autocomplete('Kickapoo Rail Trail')
       assert_equal('Kickapoo Rail Trail', res['results'][0]['name'])
     end
   end
 
   def test_places_autocomplete_the
     VCR.use_cassette("test_places_autocomplete_the") do
-      res = Inaturalia.places_autocomplete('The')
+      res = Nasturtium.places_autocomplete('The')
       res['results'].each do |r|
         assert_include(r['name'], "The")
       end
@@ -42,7 +42,7 @@ class TestPlaces < Test::Unit::TestCase
       @sw_lat = 40.075877
       @ne_lng = -88.198636
       @sw_lng = -88.210169
-      res = Inaturalia.places_nearby(@ne_lat, @ne_lng, @sw_lat, @sw_lng)
+      res = Nasturtium.places_nearby(@ne_lat, @ne_lng, @sw_lat, @sw_lng)
       res['results']['community'].each do |r|
         r['geometry_geojson']['coordinates'].each do |a|
           a.each do |b|
@@ -65,7 +65,7 @@ class TestPlaces < Test::Unit::TestCase
       @sw_lat = 40.075877
       @ne_lng = -88.198636
       @sw_lng = -88.210169
-      res = Inaturalia.places_nearby(@ne_lat, @ne_lng, @sw_lat, @sw_lng, name: "Meadowbrook")
+      res = Nasturtium.places_nearby(@ne_lat, @ne_lng, @sw_lat, @sw_lng, name: "Meadowbrook")
       res['results']['community'].each do |r|
         assert_include(r['display_name'], 'Meadowbrook')
       end

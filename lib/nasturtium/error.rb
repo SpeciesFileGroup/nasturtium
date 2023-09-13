@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Inaturalia
+module Nasturtium
     # Custom error class for rescuing from all Bonamia errors
     class Error < StandardError; end
   

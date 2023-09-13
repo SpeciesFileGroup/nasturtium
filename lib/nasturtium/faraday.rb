@@ -5,24 +5,24 @@ require "multi_json"
 
 # @private
 module Faraday
-  module InaturaliaErrors
+  module NasturtiumErrors
   # @private
     class Middleware < Faraday::Middleware
       def call(env)
         @app.call(env).on_complete do |response|
           case response[:status].to_i
           when 400
-            raise Inaturalia::BadRequest, error_message_400(response)
+            raise Nasturtium::BadRequest, error_message_400(response)
           when 404
-            raise Inaturalia::NotFound, error_message_400(response)
+            raise Nasturtium::NotFound, error_message_400(response)
           when 500
-            raise Inaturalia::InternalServerError, error_message_500(response, "Something is technically wrong.")
+            raise Nasturtium::InternalServerError, error_message_500(response, "Something is technically wrong.")
           when 502
-            raise Inaturalia::BadGateway, error_message_500(response, "The server returned an invalid or incomplete response.")
+            raise Nasturtium::BadGateway, error_message_500(response, "The server returned an invalid or incomplete response.")
           when 503
-            raise Inaturalia::ServiceUnavailable, error_message_500(response, "Crossref is rate limiting your requests.")
+            raise Nasturtium::ServiceUnavailable, error_message_500(response, "Crossref is rate limiting your requests.")
           when 504
-            raise Inaturalia::GatewayTimeout, error_message_500(response, "504 Gateway Time-out")
+            raise Nasturtium::GatewayTimeout, error_message_500(response, "504 Gateway Time-out")
           end
         end
       end

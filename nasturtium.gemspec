@@ -1,24 +1,24 @@
 # frozen_string_literal: true
 
-require_relative "lib/inaturalia/version"
+require_relative "lib/nasturtium/version"
 
 Gem::Specification.new do |s|
-  s.name          = "inaturalia"
-  s.version       = Inaturalia::VERSION
+  s.name          = "nasturtium"
+  s.version       = Nasturtium::VERSION
   s.authors       = ["Geoff Ower, Matt Yoder"]
   s.email         = ["gdower@illinois.edu"]
 
-  s.summary       = "iNaturalia Client"
-  s.description   = "iNaturalia is a low-level wrapper around the iNaturalist API."
-  s.homepage      = "https://github.com/SpeciesFileGroup/inaturalia"
+  s.summary       = "Nasturtium Client"
+  s.description   = "Nasturtium is a low-level wrapper around the iNaturalist API."
+  s.homepage      = "https://github.com/SpeciesFileGroup/nasturtium"
   s.license       = "NCSA"
   s.required_ruby_version = ">= 2.4.0"
 
  # s.metadata["allowed_push_host"] = "TODO: Set to 'https://mygemserver.com'"
 
   s.metadata["homepage_uri"] = s.homepage
-  s.metadata["source_code_uri"] = "https://github.com/SpeciesFileGroup/inaturalia"
-  s.metadata["changelog_uri"] = "https://github.com/SpeciesFileGroup/inaturalia/releases/tag/v#{s.version}"
+  s.metadata["source_code_uri"] = "https://github.com/SpeciesFileGroup/nasturtium"
+  s.metadata["changelog_uri"] = "https://github.com/SpeciesFileGroup/nasturtium/releases/tag/v#{s.version}"
 
   # Specify which files should be added to the gem when it is released.
   # The `git ls-files -z` loads the files in the RubyGem that have been added into git.

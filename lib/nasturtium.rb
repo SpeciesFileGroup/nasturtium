@@ -3,17 +3,17 @@
 require "erb"
 #require 'nokogiri'
 require 'open-uri'
-require_relative "inaturalia/error"
-require_relative "inaturalia/version"
-require_relative "inaturalia/request"
-require "inaturalia/helpers/configuration"
+require_relative "nasturtium/error"
+require_relative "nasturtium/version"
+require_relative "nasturtium/request"
+require "nasturtium/helpers/configuration"
 require 'cgi'
 
-module Inaturalia
+module Nasturtium
   extend Configuration
 
   define_setting :base_url, "https://api.inaturalist.org/v1/"
-  define_setting :mailto, ENV["INATURALIA_API_EMAIL"]
+  define_setting :mailto, ENV["NASTURTIUM_API_EMAIL"]
 
   # Get API token
   # @param user [String]

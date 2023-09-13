@@ -3,10 +3,10 @@
 # require "multi_json"
 
 ##
-# Inaturalia::RequestCursor
+# Nasturtium::RequestCursor
 #
 ## Class to perform HTTP requests to the iNaturalist API
-module Inaturalia
+module Nasturtium
   class RequestCursor
     attr_accessor :endpoint
     attr_accessor :engine

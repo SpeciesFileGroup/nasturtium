@@ -4,12 +4,12 @@
 
 def make_user_agent
   requa = "Faraday/v" + Faraday::VERSION
-  habua = "Inaturalia/v" + Inaturalia::VERSION
+  habua = "Nasturtium/v" + Nasturtium::VERSION
   ua = requa + " " + habua
-  if Inaturalia.mailto
-    ua += " (mailto:%s)" % Inaturalia.mailto
+  if Nasturtium.mailto
+    ua += " (mailto:%s)" % Nasturtium.mailto
   end
-  # ua += format(' (mailto:%s)', Inaturalia.mailto) if Inaturalia.mailto
+  # ua += format(' (mailto:%s)', Nasturtium.mailto) if Nasturtium.mailto
   ua
 end
 

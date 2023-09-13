@@ -2,7 +2,7 @@ require_relative "faraday" # !! Potential ruby 3.0 difference in module loading?
 require "faraday/follow_redirects"
 require_relative "utils"
 
-module Inaturalia
+module Nasturtium
 
   class Request
     attr_accessor :endpoint
@@ -131,7 +131,7 @@ module Inaturalia
       @per_page = args[:per_page]
       @order = args[:order]
       @order_by = args[:order_by]
-      @options = args[:options] # TODO: not added at inaturalia.rb
+      @options = args[:options] # TODO: not added at nasturtium.rb
       @headers = args[:headers]
       @override_base_url = args[:base_url]
     end
@@ -261,7 +261,7 @@ module Inaturalia
       Faraday::Utils.default_space_encoding = "+"
 
       if @override_base_url.nil?
-        @base_url = Inaturalia.base_url
+        @base_url = Nasturtium.base_url
       else
         @base_url = @override_base_url
       end
@@ -269,12 +269,12 @@ module Inaturalia
       conn = if verbose
                Faraday.new(url: @base_url) do |f|
                  f.response :logger
-                 f.use Faraday::InaturaliaErrors::Middleware
+                 f.use Faraday::NasturtiumErrors::Middleware
                  f.adapter Faraday.default_adapter
                end
              else
                Faraday.new(url: @base_url) do |f|
-                 f.use Faraday::InaturaliaErrors::Middleware
+                 f.use Faraday::NasturtiumErrors::Middleware
                  f.adapter Faraday.default_adapter
                end
              end

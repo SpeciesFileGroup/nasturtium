@@ -2,8 +2,8 @@
 
 require "test_helper"
 
-class InaturaliaTest < Test::Unit::TestCase
+class NasturtiumTest < Test::Unit::TestCase
   def test_that_it_has_a_version_number
-    refute_nil ::Inaturalia::VERSION
+    refute_nil ::Nasturtium::VERSION
   end
 end
