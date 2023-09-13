@@ -1,5 +1,7 @@
 # Nasturtium
 
+![Nasturtium logo](https://github.com/gdower/inaturalia/assets/8573609/0437e4d0-dc55-48c1-bebb-7d440a1b1441)
+
 This is a Ruby wrapper on the [iNaturalist](https://api.inaturalist.org/v1/docs/#!/Search/get_search) API. Code follow the spirit/approach of the Gem [serrano](https://github.com/sckott/serrano), and indeed much of the wrapping utility is copied 1:1 from that repo, thanks [@sckott](https://github.com/sckott).
 
 ## Installation
