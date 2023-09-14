@@ -186,9 +186,9 @@ module Nasturtium
   # @param per_page [Integer, nil] The results limit
   # @param order_by [String, nil] The parameter to sort by (observed_on, species_guess, votes, id, created_at)
   # @param verbose [Boolean] Print headers to STDOUT
-  def self.projects(q: nil, id: nil, not_id: nil, latitude: nil, longitude: nil, radius: nil, place_id: nil, featured:nil, noteworthy: nil, site_id: nil, rule_details: nil, type: nil, member_id: nil, has_params: nil, has_posts: nil, page: nil, on_page: nil, order_by: nil, verbose: false)
+  def self.projects(q: nil, id: nil, not_id: nil, latitude: nil, longitude: nil, radius: nil, place_id: nil, featured: nil, noteworthy: nil, site_id: nil, rule_details: nil, type: nil, member_id: nil, has_params: nil, has_posts: nil, page: nil, per_page: nil, order_by: nil, verbose: false)
     endpoint = "projects"
-    Request.new(endpoint: endpoint, q: q, id: id, not_id: not_id, latitude: latitude, longitude: longitude, radius: radius, place_id: place_id, featured: featured, noteworthy: noteworthy, site_id: site_id, rule_details: rule_details, type: type, member_id: member_id, has_params: has_params, has_posts: has_posts, page: page, on_page: on_page, order_by: order_by, verbose: verbose).perform
+    Request.new(endpoint: endpoint, q: q, id: id, not_id: not_id, latitude: latitude, longitude: longitude, radius: radius, place_id: place_id, featured: featured, noteworthy: noteworthy, site_id: site_id, rule_details: rule_details, type: type, member_id: member_id, has_params: has_params, has_posts: has_posts, page: page, per_page: per_page, order_by: order_by, verbose: verbose).perform
   end
 
 
