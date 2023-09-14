@@ -15,6 +15,9 @@ module Nasturtium
       @endpoint = args[:endpoint]
       @method = args[:method]
       @verbose = args[:verbose]
+      @color = args[:color]
+      @style = args[:style]
+      @tile_size = args[:tile_size]
       @q = args[:q]
       @admin_level = args[:admin_level]
       @name = args[:name]
@@ -76,6 +79,7 @@ module Nasturtium
       @authenticity_token = args[:authenticity_token]
       @user_id = args[:user_id]
       @user_login = args[:user_login]
+      @login = args[:login]
       @ident_user_id = args[:ident_user_id]
       @day = args[:day]
       @month = args[:month]
@@ -126,6 +130,13 @@ module Nasturtium
       @updated_since = args[:updated_since]
       @viewer_id = args[:viewer_id]
       @reviewed = args[:reviewed]
+      @featured = args[:featured]
+      @noteworthy = args[:noteworthy]
+      @rule_details = args[:rule_details]
+      @type = args[:type]
+      @member_id = args[:member_id]
+      @has_params = args[:has_params]
+      @has_posts = args[:has_posts]
       @ttl = args[:ttl]
       @page = args[:page]
       @per_page = args[:per_page]
@@ -140,6 +151,9 @@ module Nasturtium
     def perform
 
       args = {
+        color: @color,
+        style: @style,
+        tile_size: @tile_size,
         q: @q,
         admin_level: @admin_level,
         name: @name,
@@ -199,6 +213,7 @@ module Nasturtium
         authenticity_token: @authenticity_token,
         user_id: @user_id,
         user_login: @user_login,
+        login: @login,
         ident_user_id: @ident_user_id,
         day: @day,
         month: @month,
@@ -249,6 +264,13 @@ module Nasturtium
         updated_since: @updated_since,
         viewer_id: @viewer_id,
         reviewed: @reviewed,
+        featured: @featured,
+        noteworthy: @noteworthy,
+        rule_details: @rule_details,
+        type: @type,
+        member_id: @member_id,
+        has_params: @has_params,
+        has_posts: @has_posts,
         ttl: @ttl,
         locale: @locale,
         page: @page,

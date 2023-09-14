@@ -22,6 +22,18 @@ Or install it yourself as:
 
 ## Usage
 
+### Controlled vocabulary terms
+
+Get controlled vocabulary terms
+```ruby
+Nasturtium.controlled_terms() #  => MultiJson object
+```
+
+Get controlled vocabulary terms for a taxon
+```ruby
+Nasturtium.controlled_terms(taxon_id: 1) #  => MultiJson object
+```
+
 ### Identifications
 These are just some examples. For a complete list [view the tests](https://github.com/SpeciesFileGroup/nasturtium/blob/main/test/identifications_test.rb) for examples or the [API documentation](https://api.inaturalist.org/v1/docs/#!/Identifications/get_identifications).
 
@@ -67,8 +79,46 @@ Nasturtium.identifications(quality_grade: 'research') #  => MultiJson object
 
 Get identifications by taxon_id:
 ```ruby
-asturtium.identifications(taxon_id: 42196) #  => MultiJson object
+Nasturtium.identifications(taxon_id: 42196) #  => MultiJson object
 ```
+
+---
+### Mapping
+Get a grid map tile for the turkey vulture at zoom level 2 for coordinates (0, 1):
+```ruby
+Nasturtium.mapping('grid', 2, 0, 1, style: 'geotilegrid', tile_size: 512, taxon_id: 4756)
+```
+
+Get a colored_heatmap map tile for the turkey vulture at zoom level 2 for coordinates (0, 1):
+```ruby
+Nasturtium.mapping('colored_heatmap', 2, 0, 1, tile_size: 512, taxon_id: 4756, color: '#00ff00')
+```
+
+Get a points map tile for the turkey vulture at zoom level 2 for coordinates (0, 0):
+```ruby
+Nasturtium.mapping('points', 2, 0, 0, tile_size: 512, taxon_id: 4756, color: '#00ff00')
+```
+
+Get a points map tile for the turkey vulture at zoom level 2 for coordinates (0, 0):
+```ruby
+Nasturtium.mapping('grid', 2, 0, 1, taxon_id: 4756, return_json: true)
+```
+
+Get the taxon_places map for turkey vultures:
+```ruby
+Nasturtium.mapping('taxon_places', 2, 0, 1, taxon_id: 4756)
+```
+
+Get the taxon_ranges map for turkey vultures:
+```ruby
+Nasturtium.mapping('taxon_ranges', 2, 0, 1, taxon_id: 4756)
+```
+
+Get the places map for turkey vultures in place 35:
+```ruby
+Nasturtium.mapping('places', 2, 0, 0, place_id: 35, taxon_id: 4756, tile_size: 512)
+```
+
 
 ---
 ### Observations
@@ -330,6 +380,77 @@ Get place names nearby within a bounding box and that include the string Meadowb
 @ne_lng = -88.198636
 @sw_lng = -88.210169
 Nasturtium.places_nearby(@ne_lat, @ne_lng, @sw_lat, @sw_lng, name: "Meadowbrook") #  => MultiJson object
+```
+
+---
+### Posts
+Get journal posts:
+```ruby
+Nasturtium.posts #  => MultiJson object
+```
+
+Get journal posts for parent_id:
+```ruby
+Nasturtium.posts(parent_id: 1, page: 1, per_page: 10) #  => MultiJson object
+```
+
+Get journal posts for project_id:
+```ruby
+Nasturtium.posts(project_id: 42768) #  => MultiJson object
+```
+
+Get journal posts for a user:
+```ruby
+Nasturtium.posts(login: 'loarie') #  => MultiJson object
+```
+
+---
+### Projects
+Search projects with query term, Illinois:
+```ruby
+Nasturtium.projects(q: 'Illinois') #  => MultiJson object
+```
+
+Get a project by ID
+```ruby
+Nasturtium.projects(id: 22499) #  => MultiJson object
+```
+
+Search for projects within 5 km of 40.11136254505831, -88.2460817474295
+```ruby
+Nasturtium.projects(latitude: 40.11136254505831, longitude: -88.2460817474295, radius: 5) #  => MultiJson object
+```
+
+Get projects with place_id or with place_id as a place ancestor
+```ruby
+Nasturtium.projects(place_id: 35) #  => MultiJson object
+```
+
+Get featured projects on iNaturalist México
+```ruby
+Nasturtium.projects(featured: true, site_id: 2) #  => MultiJson object
+```
+
+Get noteworthy projects on iNaturalist
+```ruby
+Nasturtium.projects(noteworthy: true, site_id: 1) #  => MultiJson object
+```
+
+Get projects that include user_id as a member
+```ruby
+Nasturtium.projects(member_id: 477) #  => MultiJson object
+```
+
+Get projects with journal posts
+```ruby
+Nasturtium.projects(has_posts: true) #  => MultiJson object
+```
+
+---
+### Project members
+Get the members of project_id 733
+```ruby
+Nasturtium.project_members(733, page: 1, per_page: 10)
 ```
 
 ---
