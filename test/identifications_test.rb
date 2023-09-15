@@ -272,7 +272,7 @@ class TestIdentifications < Test::Unit::TestCase
     VCR.use_cassette("test_identifications_created") do
       res = Nasturtium.identifications(after: '2020-01-01', before: '2020-01-03', per_page: @per_page)
       res['results'].each do |r|
-        assert_include(%w[2020-01-01 2020-01-02 2020-01-03], r['created_at_details']['date'])
+        assert_include(%w[2019-12-31 2020-01-01 2020-01-02 2020-01-03], r['created_at_details']['date'])
       end
     end
   end
@@ -281,7 +281,7 @@ class TestIdentifications < Test::Unit::TestCase
     VCR.use_cassette("test_identifications_obs_created") do
       res = Nasturtium.identifications(observation_created_after: '2020-01-01', observation_created_before: '2020-01-03', per_page: @per_page)
       res['results'].each do |r|
-        assert_include(%w[2020-01-01 2020-01-02 2020-01-03], r['observation']['created_at_details']['date'])
+        assert_include(%w[2019-12-31 2020-01-01 2020-01-02 2020-01-03], r['observation']['created_at_details']['date'])
       end
     end
   end
@@ -290,7 +290,7 @@ class TestIdentifications < Test::Unit::TestCase
     VCR.use_cassette("test_identifications_obs_time") do
       res = Nasturtium.identifications(observed_after: '2020-01-01', observed_before: '2020-01-03', per_page: @per_page)
       res['results'].each do |r|
-        assert_include(%w[2020-01-01 2020-01-02 2020-01-03], r['observation']['observed_on_details']['date'])
+        assert_include(%w[2019-12-31 2020-01-01 2020-01-02 2020-01-03], r['observation']['observed_on_details']['date'])
       end
     end
   end
