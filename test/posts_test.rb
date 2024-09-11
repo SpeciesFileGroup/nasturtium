@@ -1,5 +1,4 @@
 require_relative "test_helper"
-require 'byebug'
 
 class TestUser < Test::Unit::TestCase
   def setup

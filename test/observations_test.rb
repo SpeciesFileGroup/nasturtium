@@ -811,46 +811,48 @@ class TestObservations < Test::Unit::TestCase
     end
   end
 
-  def test_observations_locale
 
-    def is_zh(char)
-      if char >= 0x4E00 && char <= 0x9FFF
-        return true
-      end
-      if char >= 0x3400 && char <= 0x4DBF
-        return true
-      end
-      if char >= 0x20000 && char <= 0x2A6DF
-        return true
-      end
-      if char >= 0x2A700 && char <= 0x2B73F
-        return true
-      end
-      return false
-    end
+  # TODO: iNaturalist bug? currently throws 500 error
+  # def test_observations_locale
 
-    VCR.use_cassette("test_observations_locale") do
-      res = Nasturtium.observations(locale: 'zh')
-      res['results'].each do |r|
-        unless r['taxon'].nil? or r['taxon']['preferred_common_name'].nil?
-          chars = r.dig('taxon', 'preferred_common_name').unpack('U*')
-          chars.each do |char|
-            assert_true(is_zh(char))
-          end
-        end
-      end
-    end
-  end
+  #   def is_zh(char)
+  #     if char >= 0x4E00 && char <= 0x9FFF
+  #       return true
+  #     end
+  #     if char >= 0x3400 && char <= 0x4DBF
+  #       return true
+  #     end
+  #     if char >= 0x20000 && char <= 0x2A6DF
+  #       return true
+  #     end
+  #     if char >= 0x2A700 && char <= 0x2B73F
+  #       return true
+  #     end
+  #     return false
+  #   end
 
-  # TODO: does preferred_place_id work? setting preferred_place_id=6903, returns common names in English for some taxa
-  # def test_observations_preferred_place_id
-  #   VCR.use_cassette("test_observations_preferred_place_id") do
-  #     res = Nasturtium.observations(preferred_place_id: 6903, per_page: @per_page)
+  #   VCR.use_cassette("test_observations_locale") do
+  #     res = Nasturtium.observations(locale: 'zh')
   #     res['results'].each do |r|
-  #
+  #       unless r['taxon'].nil? or r['taxon']['preferred_common_name'].nil?
+  #         chars = r.dig('taxon', 'preferred_common_name').unpack('U*')
+  #         chars.each do |char|
+  #           assert_true(is_zh(char))
+  #         end
+  #       end
   #     end
   #   end
   # end
+
+  # TODO: does preferred_place_id work? setting preferred_place_id=6903, returns common names in English for some taxa
+  def test_observations_preferred_place_id
+    VCR.use_cassette("test_observations_preferred_place_id") do
+      res = Nasturtium.observations(preferred_place_id: 6903, per_page: @per_page)
+      res['results'].each do |r|
+  
+      end
+    end
+  end
 
   def test_observations_pagination_offset
     VCR.use_cassette("test_observations_pagination") do

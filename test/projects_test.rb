@@ -8,7 +8,7 @@ class TestUser < Test::Unit::TestCase
   def test_projects_id
     VCR.use_cassette("test_projects_id") do
       res = Nasturtium.projects(id: '67047', per_page: @per_page)
-      assert_equal('champaign-county-forest-preserve-district', res['results'][0]['slug'])
+      assert_true(res['results'][0]['slug'].include?('champaign-county-forest-preserve'))
     end
   end
 

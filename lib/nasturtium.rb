@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "erb"
-#require 'nokogiri'
 require 'open-uri'
 require_relative "nasturtium/error"
 require_relative "nasturtium/version"
