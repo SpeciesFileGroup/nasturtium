@@ -527,7 +527,7 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/Specie
 
 ## License
 
-The gem is available as open source under the terms of the [NCSA/Illinois](https://opensource.org/licenses/NCSA).
+The gem is available as open source under the terms of the [MIT license](https://opensource.org/licenses/NCSA).
 
 ## Code of Conduct
 
