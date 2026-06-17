@@ -20,7 +20,7 @@ module Faraday
           when 502
             raise Nasturtium::BadGateway, error_message_500(response, "The server returned an invalid or incomplete response.")
           when 503
-            raise Nasturtium::ServiceUnavailable, error_message_500(response, "Crossref is rate limiting your requests.")
+            raise Nasturtium::ServiceUnavailable, error_message_500(response, "iNaturalist is rate limiting your requests.")
           when 504
             raise Nasturtium::GatewayTimeout, error_message_500(response, "504 Gateway Time-out")
           end

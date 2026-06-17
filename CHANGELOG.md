@@ -1,4 +1,5 @@
 ## [Unreleased]
+ - Fixed copy-paste residue: 503 error message said "Crossref is rate limiting your requests." (Crossref is the upstream serrano template's API) — changed to "iNaturalist is rate limiting your requests."
 
 ## [0.1.2] - 2026-06-17
  - Allow Ruby 4.0.0:
