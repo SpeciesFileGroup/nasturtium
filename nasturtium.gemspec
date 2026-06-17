@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
   s.description   = "Nasturtium is a low-level wrapper around the iNaturalist API."
   s.homepage      = "https://github.com/SpeciesFileGroup/nasturtium"
   s.license       = "MIT"
-  s.required_ruby_version = ">= 2.5.0"
+  s.required_ruby_version = [">= 2.5.0", "< 5.0"]
 
  # s.metadata["allowed_push_host"] = "TODO: Set to 'https://mygemserver.com'"
 
@@ -32,7 +32,6 @@ Gem::Specification.new do |s|
   # Uncomment to register a new dependency of your gem
   # s.add_dependency "example-gem", "~> 1.0"
 
-  s.add_development_dependency "bundler", "~> 2.1", ">= 2.1.4"
   s.add_development_dependency "rake", "~> 13.0", ">= 13.0.1"
   s.add_development_dependency "test-unit", "~> 3.3", ">= 3.3.6"
   s.add_development_dependency "vcr", "~> 6.0"
@@ -41,7 +40,7 @@ Gem::Specification.new do |s|
   #s.add_development_dependency "byebug"
 
   s.add_runtime_dependency "faraday", "~> 2.2"
-  s.add_runtime_dependency "faraday-follow_redirects", ">= 0.1", "< 0.4"
+  s.add_runtime_dependency "faraday-follow_redirects", ">= 0.1", "< 0.6"
   s.add_runtime_dependency "multi_json", "~> 1.15"
 
   #  s.add_runtime_dependency "thor", "~> 1.0", ">= 1.0.1"

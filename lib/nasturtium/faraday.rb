@@ -40,24 +40,15 @@ module Faraday
       end
 
       def error_body(body)
-        if !body.nil? && !body.empty? && body.is_a?(String)
-          if json?(body)
-            body = ::MultiJson.load(body)
-            if body["message"].nil?
-              body = nil
-              elseif body["message"].length == 1
-              body = body["message"]
-            else
-              body = body["message"].collect { |x| x["message"] }.join("; ")
-            end
-          end
-        end
+        return nil if body.nil? || !body.is_a?(String) || body.empty?
+        return ": #{body}" unless json?(body)
 
-        if body.nil?
-          nil
-        else
-          ": #{body}"
-        end
+        parsed = ::MultiJson.load(body)
+        msg = parsed["message"] || parsed["error"]
+        return nil if msg.nil?
+
+        msg = msg.collect { |x| x.is_a?(Hash) ? x["message"] : x.to_s }.join("; ") if msg.is_a?(Array)
+        ": #{msg}"
       end
 
       def error_message_500(response, body = nil)

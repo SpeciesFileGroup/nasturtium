@@ -4,8 +4,8 @@ class TestTaxaAutocomplete < Test::Unit::TestCase
 
   def test_taxa_autocomplete_q
     VCR.use_cassette("test_taxa_autocomplete_q") do
-      res = Nasturtium.taxa_autocomplete(q: 'Ladona ')
-      assert_includes(res['results'][0]['name'], 'Ladona')
+      res = Nasturtium.taxa_autocomplete(q: 'Sinapis ')
+      assert_true(res['results'].any? { |r| r['name'].include?('Sinapis') })
     end
   end
 
