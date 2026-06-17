@@ -166,14 +166,12 @@ class TestIdentifications < Test::Unit::TestCase
     end
   end
 
-  # quality_grade filters identifications by their observation's quality_grade,
-  # but observation grades drift over time so we only require that the filter
-  # returns mostly matching results.
   def test_identifications_quality_grade
     VCR.use_cassette("test_identifications_quality_grade") do
       res = Nasturtium.identifications(quality_grade: 'research', per_page: @per_page)
-      matching = res['results'].count { |r| r['observation']['quality_grade'] == 'research' }
-      assert_true(matching > res['results'].size / 2)
+      res['results'].each do |r|
+        assert_equal('research', r['observation']['quality_grade'])
+      end
     end
   end
 
