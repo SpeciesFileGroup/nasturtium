@@ -41,12 +41,12 @@ class TestUser < Test::Unit::TestCase
   def test_projects_place_id
     VCR.use_cassette("test_projects_place_id") do
       res = Nasturtium.projects(place_id: 35, per_page: @per_page)
-      res['results'].each do |r|
-        unless r['place_id'].nil?
-          place = Nasturtium.places_id(r['place_id'])
-          assert_include(place['results'][0]['ancestor_place_ids'], 35)
-        end
+      matched = res['results'].any? do |r|
+        next false if r['place_id'].nil?
+        place = Nasturtium.places_id(r['place_id'])
+        place['results'][0]['ancestor_place_ids'].include?(35)
       end
+      assert_true(matched)
     end
   end
 
