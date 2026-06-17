@@ -37,6 +37,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency "vcr", "~> 6.0"
   s.add_development_dependency "webmock", "~> 3.18"
   s.add_development_dependency "rexml", "~> 3.3", ">= 3.3.6"
+  s.add_development_dependency "irb", "~> 1.0"
   #s.add_development_dependency "byebug"
 
   s.add_runtime_dependency "faraday", "~> 2.2"
